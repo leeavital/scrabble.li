@@ -1,4 +1,3 @@
-
 /**
  * Construct a new Trie
  */
