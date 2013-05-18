@@ -1,10 +1,37 @@
+module trie;
+
 import std.stdio;
 import std.array;
 import std.string;
 
 
 
-class TrieNode{
+
+/**
+ * wrapper class
+ */
+class Trie{
+   
+   TrieNode root;
+   
+   
+   this(){
+	  root = new TrieNode();
+   }
+     
+   void put( string s ){
+	  root.put( s.toUpper() );
+   }
+   
+   
+   bool contains( string s){
+	  return root.contains( s.toUpper() );	  
+   }
+
+}
+
+
+private class TrieNode{
 
    TrieNode[] children;
    bool isWord;
@@ -71,6 +98,7 @@ class TrieNode{
 
 
 
+// unit test one, tests internal structures
 unittest{
    
 
@@ -98,7 +126,23 @@ unittest{
 // unittest 2
 unittest{
 
-  writefln("finished unittest 2 for TrieNode"); 
+   auto t1 = new Trie;
+   t1.put( "HELLO" );
+   
+
+   assert( t1.contains("heLLO"), "failed test one" );
+ 
+   assert( ! t1.contains("GOODBYE"), "failed test two" );
+   
+   assert( !  t1.contains("word"), "failed test three" );
+
+   t1.put( "word" );
+
+
+   assert( t1.contains("word"), "failed test four" );
+
+   writefln("finished unittest 2 for Trie");
+   auto t = new Trie;
 }
 
 

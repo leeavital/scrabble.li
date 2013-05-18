@@ -1,3 +1,6 @@
+module rack;
+
+
 import std.stdio;
 
 class Rack{
@@ -42,12 +45,7 @@ class Rack{
 
    }
 
-
    void remove( char c ){
-	  
-	  
-	  
-	     
 	  auto i = 0;
 	  for( ; i < 7; i++ ){
 		 
@@ -61,7 +59,6 @@ class Rack{
 	   
    }
 
-   
    override string toString(){
 	  auto s = "";
 	  for(int i = 0; i < currentIndex - 1; i++){
@@ -73,16 +70,11 @@ class Rack{
 	  return s;
 
    }
-
-
-    
-
 }
 
 
 unittest{
    
-   writefln("passed unittest 1 for Rack");
    
    auto r = new Rack();
    assert( r.size == 0, "failed size test" );
@@ -120,6 +112,7 @@ unittest{
     
 
 
+   writefln("finished unittest 1 for Rack");
 
 }
 

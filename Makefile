@@ -9,3 +9,8 @@ all: $(OBJECTS)
 .d.o:
 	dmd -c -unittest $<
 
+
+clean:
+	rm Trie
+	rm *.o
+ 
