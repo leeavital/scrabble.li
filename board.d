@@ -8,6 +8,12 @@ class Board{
    char[26][26] board;
 
    this(){
+	  for( auto i = 0; i < 26; i++){
+		 for( auto j = 0; j < 26; j++){
+			board[i][j] = ' ';
+		 }
+	  }
+   
    }
 
    char opIndex( int i, int j ){

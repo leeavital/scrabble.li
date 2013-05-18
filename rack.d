@@ -32,7 +32,7 @@ class Rack{
 
 
 
-   void add(char c){
+   public void add(char c){
 
 	  if( currentIndex >= 7 ){
 		 throw new Exception( "out of range" );
@@ -45,7 +45,7 @@ class Rack{
 
    }
 
-   void remove( char c ){
+   public void remove( char c ){
 	  auto i = 0;
 	  for( ; i < 7; i++ ){
 		 

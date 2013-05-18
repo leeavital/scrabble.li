@@ -122,8 +122,7 @@ class TrieNode{
 
    TrieNode search( string s ){
 	  
-	  writefln("searching for: %s", s );
-
+	   
 	  if(s == "" ){
 		 return this;
 	  }else{
@@ -132,8 +131,6 @@ class TrieNode{
 		 auto tail = s[1..$];
 		 auto childIndex = head - 65;
 		 
-		 writefln("childIndex: %d", childIndex);
-		  
 		 if( children[ childIndex ] is  null ){
 			return null;
 		 }else{

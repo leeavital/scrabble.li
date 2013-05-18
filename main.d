@@ -14,6 +14,8 @@ int main(){
    rack.add( 'A' );
    rack.add( 'T' );
    
+    
+   board[4, 2] = 'S';    
    
    
    solve( board, dictionary, rack );
