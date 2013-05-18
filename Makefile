@@ -1,9 +1,9 @@
 .SUFFIXES: .d .o
 
-OBJECTS = Trie.o Rack.o
+OBJECTS = Trie.o Rack.o main.o Board.o
 
 all: $(OBJECTS)
-	dmd	$(OBJECTS)
+	dmd	-ofmain $(OBJECTS)
 
 
 .d.o:
@@ -11,6 +11,6 @@ all: $(OBJECTS)
 
 
 clean:
-	rm Trie
+	rm main
 	rm *.o
  

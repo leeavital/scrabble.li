@@ -146,8 +146,3 @@ unittest{
 }
 
 
-
-int main(){
-   
-   return 1;
-}
