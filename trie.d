@@ -1,8 +1,8 @@
 module trie;
 
 import std.stdio;
-import std.array;
 import std.string;
+import std.file;
 
 
 
@@ -28,10 +28,38 @@ class Trie{
 	  return root.contains( s.toUpper() );	  
    }
 
+
 }
 
 
-private class TrieNode{
+
+TrieNode getEnglishDictionary(){
+   
+      
+   auto root = new TrieNode;
+   
+
+   auto txt = File( "dictionary.txt" );
+   
+   
+    
+   while( ! txt.eof ){ 
+	  auto line = txt.readln();
+	  line = line.strip();
+	  
+
+	  root.put( line );
+   }
+   
+    
+   return root;
+
+}
+
+
+
+
+class TrieNode{
 
    TrieNode[] children;
    bool isWord;
@@ -92,6 +120,32 @@ private class TrieNode{
 
 
 
+   TrieNode search( string s ){
+	  
+	  writefln("searching for: %s", s );
+
+	  if(s == "" ){
+		 return this;
+	  }else{
+		 
+		 auto head = s[0];
+		 auto tail = s[1..$];
+		 auto childIndex = head - 65;
+		 
+		 writefln("childIndex: %d", childIndex);
+		  
+		 if( children[ childIndex ] is  null ){
+			return null;
+		 }else{
+			return children[childIndex].search( tail );
+		 }
+
+
+		  
+	  }
+
+   }
+
 }
 
 
@@ -118,6 +172,10 @@ unittest{
 
    assert( t1.contains("word"), "failed test four" );
 
+   assert( ! (t1.search("WO").search("RD") is null), "failed find test 1");
+   assert( t1.search("WO").search("ER") is null, "failed find test 2");
+
+
    writefln("finished unittest 1 for TrieNode");
 }
 
@@ -142,7 +200,8 @@ unittest{
    assert( t1.contains("word"), "failed test four" );
 
    writefln("finished unittest 2 for Trie");
-   auto t = new Trie;
+
+
 }
 
 

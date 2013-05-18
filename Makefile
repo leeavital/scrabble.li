@@ -1,6 +1,6 @@
 .SUFFIXES: .d .o
 
-OBJECTS = Trie.o Rack.o main.o Board.o
+OBJECTS = trie.o rack.o main.o board.o gaddag.o solver.o
 
 all: $(OBJECTS)
 	dmd	-ofmain $(OBJECTS)

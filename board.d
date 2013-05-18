@@ -30,5 +30,5 @@ unittest{
    
    assert( b[0, 5] == 'J', "failed index test" );
 
-
+   writeln("finished unittest 1 for board");
 }
