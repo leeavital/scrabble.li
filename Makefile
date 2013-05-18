@@ -1,6 +1,6 @@
 .SUFFIXES: .d .o
 
-OBJECTS = Trie.o
+OBJECTS = Trie.o Rack.o
 
 all: $(OBJECTS)
 	dmd	$(OBJECTS)

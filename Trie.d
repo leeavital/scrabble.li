@@ -4,32 +4,63 @@ import std.string;
 
 
 
-class Trie{
+class TrieNode{
 
-   Trie[] children;
+   TrieNode[] children;
    bool isWord;
 
    this(){
-	  children = new Trie[26];
+	  children = new TrieNode[26];
 	  isWord = false;
    }
    
 
    void put( string s ){
+	  
+
 	  if( s == ""){
 		 this.isWord = true;
-		 	 
 	  }else{
 		 
-		 char first = s[0];
-		 auto last = s[1..$];
+		  
+		 auto first = s[0];
+		 auto tail = s[1..$];
+		 
+		 // the array index where the subtrie will appear
+		 auto childIndex = (first - 65) % 32;
+
+		 // make sure the subTrieNode already exists 
+		 if( children[childIndex] is null ){
+			children[ childIndex ] = new TrieNode;
+		 }
+		 
+		 // recurse
+		 children[childIndex].put( tail );
 
 	  }
    }
 
-
+   
+   /**
+    * @return true if the TrieNode contains string s
+	*/
    bool contains( string s ){
-	  return true;
+	  if( s == "" ){
+		 return isWord;
+	  }
+
+	  else{
+		 
+		 auto head = s[0];
+		 auto tail = s[1..$];		 
+		 auto childIndex = (head - 65) % 32;
+
+		 if( children[ childIndex ] is null ){
+			return false;
+		 }else{
+			return children[ childIndex ].contains( tail );
+		 }
+	  }
    }
 
 
@@ -44,20 +75,35 @@ unittest{
    
 
 
-   auto t1 = new Trie;
-   t1.put( "hello" );
+   auto t1 = new TrieNode;
+   t1.put( "HELLO" );
+   
 
-   assert( t1.contains("hello"), "failed test one" );
+   assert( t1.contains("heLLO"), "failed test one" );
  
-   assert( ! t1.contains("goodbye"), "failed test two" );
+   assert( ! t1.contains("GOODBYE"), "failed test two" );
+   
+   assert( !  t1.contains("word"), "failed test three" );
 
+   t1.put( "word" );
+
+
+   assert( t1.contains("word"), "failed test four" );
+
+   writefln("finished unittest 1 for TrieNode");
 }
+
+
+
+// unittest 2
+unittest{
+
+  writefln("finished unittest 2 for TrieNode"); 
+}
+
 
 
 int main(){
    
-   string s = "safasdf";
-   auto t = back( s ); 
-   writeln( t ); 
    return 1;
 }
