@@ -92,7 +92,7 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 			
 			writefln("trying %c on the right", c );	
 
-			if( ! ( subNode is null ) ){
+			if( ! ( subNode is null ) && checkCrossSet(c, anchor) ){
 			   	   
 			   therack.remove( c );
 			   extendRight( prefix ~ c, subNode, anchor.right() );
@@ -120,3 +120,7 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 
 }
 
+
+bool checkCrossSet( char c, Position anchor ){
+   return true;
+}
