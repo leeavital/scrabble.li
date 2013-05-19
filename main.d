@@ -21,11 +21,17 @@ int main(){
    rack.add( 'E' );   
    
     
-   board[4, 2] = 'S';    
+   board[4, 2] = 'E';    
    board[5, 3] = 'O';
+   board[6,3] = 'R'; 
    
-   
+   writefln("initial board");   
    writeln( board );
+
+
+   writefln("initial rack");
+   writeln(rack);
+
     
    solve( board, dictionary, rack );
 
