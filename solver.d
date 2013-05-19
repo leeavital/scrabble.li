@@ -9,18 +9,25 @@ import std.stdio;
 struct Position{
    int x;
    int y;
-   Position left(){
+   @property Position left(){
 	  return Position(x - 1, y );
    };
-   Position right(){
+   @property Position right(){
 	  return Position(x + 1, y);
    };
-   Position above(){
+   @property Position above(){
 	  return Position(x, y - 1);
    };
-   Position below(){
+   @property Position below(){
 	  return Position(x, y + 1);
    };
+}
+
+
+
+struct Move{
+   Position position;
+   string word;
 }
 
 
@@ -93,7 +100,7 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 			if( ! ( subNode is null ) && checkCrossSet(c, anchor) ){
 			   	   
 			   therack.remove( c );
-			   extendRight( prefix ~ c, subNode, anchor.right() );
+			   extendRight( prefix ~ c, subNode, anchor.right );
 			   therack.add( c );
 			}
 
@@ -109,7 +116,7 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 	  auto subNode = n.search( c ~ "" );
 		 
 	  if( !(subNode is null) ){
-		 extendRight( prefix ~ c, subNode, anchor.right() );
+		 extendRight( prefix ~ c, subNode, anchor.right );
 	  }else{
 		 // won't make any words
 	  }
@@ -124,21 +131,21 @@ bool checkCrossSet( char c, Position anchor ){
    
    // get all of the letters directly above
    auto strAbove = "";
-   auto nodeAbove = anchor.above();
+   auto nodeAbove = anchor.above;
 
    while( theboard[ nodeAbove.x, nodeAbove.y ] != ' ' ){
 	  strAbove = theboard[nodeAbove.x, nodeAbove.y] ~ strAbove;
-	  nodeAbove = nodeAbove.above();
+	  nodeAbove = nodeAbove.above;
    }
 
    // get all of the letters below
    auto strBelow = "";
-   auto nodeBelow = anchor.below();
+   auto nodeBelow = anchor.below;
 
    
    while( theboard[ nodeBelow.x, nodeBelow.y ] != ' ' ){
 	  strBelow ~= theboard[nodeBelow.x, nodeBelow.y];
-	  nodeBelow = nodeBelow.below();
+	  nodeBelow = nodeBelow.below;
    }
    
    

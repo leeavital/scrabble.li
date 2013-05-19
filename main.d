@@ -8,8 +8,7 @@ int main(){
 
    writefln("starting the main function (unittests passed)");
 
-   // don't do anything
-      
+    
    auto dictionary = getEnglishDictionary();
    auto board = new Board();
    auto rack = new Rack();
