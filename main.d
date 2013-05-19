@@ -22,6 +22,8 @@ int main(){
    board[4, 2] = 'S';    
    
    
+   writeln( board );
+    
    solve( board, dictionary, rack );
 
    return 1;

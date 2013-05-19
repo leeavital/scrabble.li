@@ -1,6 +1,8 @@
 module Board;
 
 import std.stdio;
+import std.format;
+import std.array;
 
 
 /**
@@ -36,6 +38,52 @@ class Board{
 	  writefln("assigning %d %d as %c", i, j, c );
 	  board[i][j] = c;
    }
+
+
+   
+   /**
+    * print out the board
+	*/
+   override string toString(){
+	  
+	  
+	  
+	  auto writer = appender!string(); 
+	  
+	  
+	  
+	  formattedWrite( writer, "---" );
+	   
+	  for(int i = 0; i < 26; i++){
+		 
+		 formattedWrite( writer, "%-2d ", i );
+	  
+	  }
+	  
+	  formattedWrite( writer, "\n" );
+
+	  for( auto y = 0; y < 26; y++ ){
+		 
+		 formattedWrite( writer,  "%-3d", y );
+		 
+		 for( int x = 0; x < 26; x++){
+			
+			auto thechar = board[x][y];
+			if(thechar == ' '){  thechar = '-'; }
+
+			formattedWrite( writer, "%c  ", thechar );
+		 }
+
+		 formattedWrite( writer, "\n" );
+
+		 	 
+	  }
+
+
+	  return writer.data;
+   }
+
+
 }
 
 
