@@ -37,7 +37,7 @@ void solve( Board b, TrieNode d, Rack r){
 	
 
 	// for now only use one
-    auto anchor = Position(2, 2);
+    auto anchor = Position(3, 2);
    
     extendLeft( "", dictionary, anchor, 2 ); 
    
@@ -119,6 +119,34 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 }
 
 
+
 bool checkCrossSet( char c, Position anchor ){
-   return true;
+   
+   // get all of the letters directly above
+   auto strAbove = "";
+   auto nodeAbove = anchor.above();
+
+   while( theboard[ nodeAbove.x, nodeAbove.y ] != ' ' ){
+	  strAbove = theboard[nodeAbove.x, nodeAbove.y] ~ strAbove;
+	  nodeAbove = nodeAbove.above();
+   }
+
+   // get all of the letters below
+   auto strBelow = "";
+   auto nodeBelow = anchor.below();
+
+   
+   while( theboard[ nodeBelow.x, nodeBelow.y ] != ' ' ){
+	  strBelow ~= theboard[nodeBelow.x, nodeBelow.y];
+	  nodeBelow = nodeBelow.below();
+   }
+   
+   
+
+   // concat:
+   // above + this + below
+   auto crossStr = strAbove ~ c ~ strBelow;
+   
+   // return isWord( above )
+   return crossStr.length == 1 || dictionary.contains( crossStr );
 }

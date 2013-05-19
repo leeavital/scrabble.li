@@ -16,10 +16,13 @@ int main(){
    rack.add( 'C' );
    rack.add( 'A' );
    rack.add( 'T' );
-   
+   rack.add( 'S' );
+   rack.add( 'T' );
+   rack.add( 'E' );   
    
     
    board[4, 2] = 'S';    
+   board[5, 3] = 'O';
    
    
    writeln( board );

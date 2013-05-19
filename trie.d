@@ -35,14 +35,10 @@ class Trie{
 
 TrieNode getEnglishDictionary(){
    
-      
    auto root = new TrieNode;
    
-
    auto txt = File( "dictionary.txt" );
    
-   
-    
    while( ! txt.eof ){ 
 	  auto line = txt.readln();
 	  line = line.strip();
