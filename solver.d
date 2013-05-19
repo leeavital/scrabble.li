@@ -35,7 +35,6 @@ void solve( Board b, TrieNode d, Rack r){
    therack = r; 
    // compute the possible anchor squares 
 	
-    writefln("solver with %s", therack );
 
 	// for now only use one
     auto anchor = Position(2, 2);
@@ -54,7 +53,7 @@ void extendLeft(  string prefix, TrieNode n, Position anchor, int limit ){
 	  
 	  for( int i = 0; i < therack.size; i++ ){
 		 
-		 auto c = therack.letters[i];
+		 auto c = therack[i];
 		 auto childNode = n.search( c ~ "" );
 		 
 		 if( ! (childNode is null) ){
@@ -74,23 +73,22 @@ void extendLeft(  string prefix, TrieNode n, Position anchor, int limit ){
 
 
 void extendRight( string prefix, TrieNode n, Position anchor ){
-  
-
-
-   
    
    // if the square is vacant 
    if( theboard[anchor.x, anchor.y] == ' '  ){
 	  if( n.isWord ){
-		 writefln("found a word at: %s", prefix);
+		 
+		 // record a move here
+		 auto leftPos = Position( anchor.x - cast(int)prefix.length, anchor.y);
+		 writefln("found a word at: %s from (%d, %d) to (%d, %d)", 
+			prefix, leftPos.x, leftPos.y, anchor.x, anchor.y);
 	  }else{
 		 
 		 for( auto i = 0; i < therack.size; i++ ){
 			
-			auto c = therack.letters[i];
+			auto c = therack[i];
 			auto subNode = n.search( "" ~ c );		
 			
-			writefln("trying %c on the right", c );	
 
 			if( ! ( subNode is null ) && checkCrossSet(c, anchor) ){
 			   	   

@@ -1,12 +1,17 @@
-module rack;
 
 
 import std.stdio;
 
+
+
+/**
+ * represents a Rack
+ */
 class Rack{
    
-   char letters[7];
-   auto currentIndex = 0;
+   
+   private char letters[7];
+   private int currentIndex = 0;
    
 
    @property auto size(){ return currentIndex; }
@@ -28,6 +33,14 @@ class Rack{
 		 letters[i] = r.letters[i];
 	  }
 
+   }
+
+   
+   /**
+    * make the Rack index retreivable
+	*/
+   char opIndex(int i){
+	  return letters[i];
    }
 
 
