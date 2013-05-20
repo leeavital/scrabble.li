@@ -83,25 +83,22 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 		 
 
 	  }
-	  
-	  // else{
 		 
-		 for( auto i = 0; i < therack.size; i++ ){
-			
-			auto c = therack[i];
-			auto subNode = n.search( "" ~ c );		
-			
-
-			if( ! ( subNode is null ) && checkCrossSet(c, anchor) ){
-			   	   
-			   therack.remove( c );
-			   extendRight( prefix ~ c, subNode, anchor.right );
-			   therack.add( c );
-			}
-
-
-	  // }
-
+	  for( auto i = 0; i < therack.size; i++ ){
+	     
+	     auto c = therack[i];
+	     auto subNode = n.search( "" ~ c );		
+	     
+	  
+	     if( ! ( subNode is null ) && checkCrossSet(c, anchor) ){
+	        	   
+	        therack.remove( c );
+	        extendRight( prefix ~ c, subNode, anchor.right );
+	        therack.add( c );
+	     }
+	  
+	  
+	  
 	  }
    }
 

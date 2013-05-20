@@ -4,9 +4,23 @@ import board;
 import solver;
 import std.stdio;
 
-int main(){
+int main( string[] args ){
 
    writefln("starting the main function (unittests passed)");
+   
+   writeln( args );
+
+   if( args[1] == "printboard" ){
+	  
+	  auto b = readBoard( ".board" );
+	  writeln( b );
+
+   }
+
+   
+   return 1;
+
+   
 
     
    auto dictionary = getEnglishDictionary();
@@ -33,3 +47,9 @@ int main(){
 
    return 1;
 }  
+
+
+
+Board readBoard( string filename ){
+   return ;
+}
