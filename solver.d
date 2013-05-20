@@ -1,5 +1,6 @@
 module solver;
 
+
 import board;
 import trie;
 import rack;

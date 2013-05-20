@@ -8,17 +8,15 @@ int main( string[] args ){
 
    writefln("starting the main function (unittests passed)");
    
-   writeln( args );
+   // writeln( args );
 
-   if( args[1] == "printboard" ){
-	  
-	  auto b = readBoard( ".board" );
-	  writeln( b );
+   // if( args[1] == "printboard" ){
+   //    
+   //    auto b = readBoard( ".board" );
+   //    writeln( b );
 
-   }
+   // }
 
-   
-   return 1;
 
    
 
@@ -34,6 +32,7 @@ int main( string[] args ){
    board[4, 2] = 'E';    
    board[5, 2] = 'E';
    board[5, 3] = 'R';
+   board[3, 3] = 'E';
    
    writefln("initial board");   
    writeln( board );
@@ -51,5 +50,21 @@ int main( string[] args ){
 
 
 Board readBoard( string filename ){
-   return ;
+   auto board = new  Board;
+   auto f = File( ".board" , "r");
+
+   for(int y = 0; y < 26; y ++ ){
+	  auto line = f.readln();
+
+	  writefln("read a line of length: %d", line.length );
+
+	  for(int x = 0; x < 26; x++ ){
+		 board[x,y] = line[x];
+	  }
+
+
+	  y++;
+   }
+
+   return board;
 }

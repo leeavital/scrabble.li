@@ -35,7 +35,7 @@ class Board{
     * allow the board to be index assigned
 	*/
    void opIndexAssign( char c, int i, int j){
-	  writefln("assigning %d %d as %c", i, j, c );
+	  //writefln("assigning %d %d as %c", i, j, c );
 	  board[i][j] = c;
    }
 
