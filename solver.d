@@ -37,9 +37,6 @@ void solve( Board b, TrieNode d, Rack r){
 			
 			writeln( "nonblank at ", pos );
 				
-			if( theboard[pos.right] == ' ' && pos.right.x >= 0 ){
-			   extendLeft( "", dictionary, pos.right, 1 );  
-			}
 
 			if ( theboard[pos.left] == ' ' && pos.left.x < 26 ){
 			   extendLeft( "", dictionary, pos.left, 1 );

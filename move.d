@@ -1,3 +1,9 @@
+/**
+ * @author Lee Avital
+ * 
+ * A structure to represent a scrabble move
+ */
+
 module move;
 
 import std.format;
@@ -20,7 +26,14 @@ struct Move{
 
    bool opEquals(Move m){
 	  return m.position.x == position.x && m.position.y == position.y && m.word == word;
+   };
+
+   hash_t toHash(){
+	  return position.x + position.y;
    }
+   
+
+   
 
    
 
