@@ -156,23 +156,24 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
  */
 int evaluateMove( Board b, Move m){
    
-
-   auto startSquare = m.position;
-   
    // count the total
    auto total = 0;
 
    // keep track of the multiplier
    auto multiplier = 1;
-
+   
+   // keep track of a position (moving right)
+   auto currPos = m.position; 
+   
    foreach( ulong i; 0 .. m.word.length ){
 	  
 	  total += LETTER_VALUES[ m.word[ i ] ];
-	  
+	   
 	  // figure out if we need a cross set
-	  if( b[ m.position.above ] != ' ' || b[ m.position.below ] != ' ' ){
+	  if( b[ currPos.above ] != ' ' || b[ currPos.below ] != ' ' ){
 		 
-		 auto tileptr = m.position.above;
+
+		 auto tileptr = currPos.above;
 		 while( b[tileptr] != ' '){
 			total += LETTER_VALUES[ b[tileptr] ];
 			tileptr = tileptr.above;
@@ -181,7 +182,7 @@ int evaluateMove( Board b, Move m){
 
 
 
-		 tileptr = m.position.below;
+		 tileptr = currPos.below;
 		 while( b[tileptr] != ' '){
 			total += LETTER_VALUES[ b[tileptr] ];
 			tileptr = tileptr.below;
@@ -191,10 +192,11 @@ int evaluateMove( Board b, Move m){
 		 total += LETTER_VALUES[ m.word[i] ];
 
 	  }
-	   
+	  
+	  // move the position pointer right
+	  currPos = currPos.right;
 	    	  
    }
-
    return total;
 }
 
@@ -244,6 +246,8 @@ bool checkCrossSet( char c, Position anchor ){
 
 
 
+
+// unit test for evaluateMove()
 unittest{
    
    auto b = new Board();
@@ -251,7 +255,24 @@ unittest{
    auto m = Move(3,3,"FOO");
   
    // simple case,  no cross sections 
-   assert( evaluateMove(b, m) == 3);
+   // Foo = 4 + 1 + 1
+   assert( evaluateMove(b, m) == 6);
     
+
+
+   // also, no cross set
+   // FOOBAR = 4 + 1 + 1 + 3 + 1 + 1 = 11
+   auto m2 = Move(3, 3, "FOOBAR");
+   assert( evaluateMove(b, m2 ) ==  11);
+   
+   
+   b[3,4] = 'O';
+   auto m3 = Move(3, 3, "SO");
+   
+    
+   // one cross set on the first character
+   assert( evaluateMove(b, m3) == 4 );
+   
+       
    writefln("finished unittest for evaluateMove");
 }
