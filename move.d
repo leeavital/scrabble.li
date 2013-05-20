@@ -30,6 +30,30 @@ struct Move{
 
    hash_t toHash(){
 	  return position.x + position.y;
+   };
+
+
+   int opCmp( Move m ){
+	  if( position.x != m.position.x ){	  
+		 return position.x - m.position.x;
+	  }
+
+
+	  if( position.y != m.position.y ){	  
+		 return position.y - m.position.y;
+	  }
+
+	  else if( word != m.word ){
+		 
+		 if( word < m.word ){
+			return -1;
+		 }else{
+			return 1;
+		 }	
+	  }
+
+	  return 0;
+
    }
    
 

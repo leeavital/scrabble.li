@@ -141,12 +141,27 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 
 
 
+
+/**
+ * evaluate a move and return the number of points scored
+ * 
+ * @param b the board on which the move is played
+ * @param m the move to be evaluated 
+ */
 int evaluateMove( Board b, Move m ){
+    
    return 100;
 }
 
 
 
+/**
+ * check to see if a given character is in a positions cross set
+ * i.e. , if A is the word above and B is below, is AcB a word?
+ *
+ * @param c the character to check
+ * @param anchor the position at which to check
+ */
 bool checkCrossSet( char c, Position anchor ){
    
    // get all of the letters directly above

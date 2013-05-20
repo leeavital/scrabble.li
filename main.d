@@ -33,6 +33,8 @@ int main( string[] args ){
    board[5, 2] = 'E';
    board[5, 3] = 'R';
    board[3, 3] = 'E';
+   board[2, 4] = 'O';
+   
    
    writefln("initial board");   
    writeln( board );
