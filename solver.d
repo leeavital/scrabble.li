@@ -156,7 +156,7 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
  */
 int evaluateMove( Board b, Move m){
    
-   
+
    auto startSquare = m.position;
    
    // count the total
@@ -169,9 +169,31 @@ int evaluateMove( Board b, Move m){
 	  
 	  total += LETTER_VALUES[ m.word[ i ] ];
 	  
+	  // figure out if we need a cross set
+	  if( b[ m.position.above ] != ' ' || b[ m.position.below ] != ' ' ){
+		 
+		 auto tileptr = m.position.above;
+		 while( b[tileptr] != ' '){
+			total += LETTER_VALUES[ b[tileptr] ];
+			tileptr = tileptr.above;
+
+		 }
+
+
+
+		 tileptr = m.position.below;
+		 while( b[tileptr] != ' '){
+			total += LETTER_VALUES[ b[tileptr] ];
+			tileptr = tileptr.below;
+		 }
+
+		 // double count this letter because it's both a down word and an accros word
+		 total += LETTER_VALUES[ m.word[i] ];
+
+	  }
+	   
 	    	  
    }
-
 
    return total;
 }
