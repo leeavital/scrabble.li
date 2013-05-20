@@ -6,6 +6,7 @@ import trie;
 import rack;
 import position;
 import move;
+import constants;
 import std.stdio;
 import std.array;
 import std.format;
@@ -153,10 +154,26 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
  * @param b the board on which the move is played
  * @param m the move to be evaluated 
  */
-int evaluateMove( Board b, Move m ){
+int evaluateMove( Board b, Move m){
    
-      
-   return 100;
+   
+   auto startSquare = m.position;
+   
+   // count the total
+   auto total = 0;
+
+   // keep track of the multiplier
+   auto multiplier = 1;
+
+   foreach( ulong i; 0 .. m.word.length ){
+	  
+	  total += LETTER_VALUES[ m.word[ i ] ];
+	  
+	    	  
+   }
+
+
+   return total;
 }
 
 
