@@ -239,3 +239,19 @@ bool checkCrossSet( char c, Position anchor ){
    // return isWord( above )
    return crossStr.length == 1 || dictionary.contains( crossStr );
 }
+
+
+
+
+
+unittest{
+   
+   auto b = new Board();
+   
+   auto m = Move(3,3,"FOO");
+  
+   // simple case,  no cross sections 
+   assert( evaluateMove(b, m) == 3);
+    
+   writefln("finished unittest for evaluateMove");
+}
