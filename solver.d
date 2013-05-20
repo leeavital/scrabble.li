@@ -22,19 +22,43 @@ void solve( Board b, TrieNode d, Rack r){
    theboard = b;
    dictionary = d;
    therack = r; 
-   // compute the possible anchor squares 
-	
-
-	// for now only use one
-    auto anchor = Position(3, 2);
+   // compute the possible anchor squares
    
-    extendLeft( "", dictionary, anchor, 3 ); 
-   
-    foreach(Move m, int s; moves){
+    
+   for( int x = 0; x < 26; x++ ){
 	  
-	  writefln("%s will score %d points", m, s);
-	   
-	}
+	  for( int y = 0; y < 26; y++ ){
+		 
+		  
+		 auto pos = Position(x, y);
+
+		 
+		 if( theboard[pos.x, pos.y] != ' ' ) {
+			
+			writeln( "nonblank at ", pos );
+				
+			if( theboard[pos.right] == ' ' && pos.right.x >= 0 ){
+			   extendLeft( "", dictionary, pos.right, 1 );  
+			}
+
+			if ( theboard[pos.left] == ' ' && pos.left.x < 26 ){
+			   extendLeft( "", dictionary, pos.left, 1 );
+			}
+
+		 }
+
+
+	  }
+
+   }
+   
+   // extendLeft( "", dictionary, anchor, 3 ); 
+   
+   foreach(Move m, int s; moves){
+     
+     writefln("%s will score %d points", m, s);
+      
+   }
 }
 
 

@@ -20,7 +20,7 @@ struct Move{
 
    bool opEquals(Move m){
 	  return m.position.x == position.x && m.position.y == position.y && m.word == word;
-   },
+   }
 
    
 

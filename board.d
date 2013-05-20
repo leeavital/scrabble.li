@@ -3,7 +3,7 @@ module Board;
 import std.stdio;
 import std.format;
 import std.array;
-
+import position;
 
 /**
  * Represents a scrabble board
@@ -29,6 +29,11 @@ class Board{
 	*/
    char opIndex( int i, int j ){
 	  return board[i][j];
+   }
+
+
+   char opIndex( Position p ){
+	  return board[ p.x ][ p.y ];
    }
 
    /**
