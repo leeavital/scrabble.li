@@ -17,6 +17,11 @@ Rack therack;
 int[Move] moves;
 
 
+
+
+
+
+
 void solve( Board b, TrieNode d, Rack r){ 
    
    theboard = b;
@@ -149,9 +154,12 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
  * @param m the move to be evaluated 
  */
 int evaluateMove( Board b, Move m ){
-    
+   
+      
    return 100;
 }
+
+
 
 
 
