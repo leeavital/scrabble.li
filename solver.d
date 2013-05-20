@@ -3,40 +3,21 @@ module solver;
 import board;
 import trie;
 import rack;
+import position;
+import move;
 import std.stdio;
-
-
-struct Position{
-   int x;
-   int y;
-   @property Position left(){
-	  return Position(x - 1, y );
-   };
-   @property Position right(){
-	  return Position(x + 1, y);
-   };
-   @property Position above(){
-	  return Position(x, y - 1);
-   };
-   @property Position below(){
-	  return Position(x, y + 1);
-   };
-}
-
-
-
-struct Move{
-   Position position;
-   string word;
-}
+import std.array;
+import std.format;
 
 
 Board theboard;
 TrieNode dictionary;
 Rack therack;
+int[Move] moves;
 
 
 void solve( Board b, TrieNode d, Rack r){ 
+   
    theboard = b;
    dictionary = d;
    therack = r; 
@@ -46,9 +27,13 @@ void solve( Board b, TrieNode d, Rack r){
 	// for now only use one
     auto anchor = Position(3, 2);
    
-    extendLeft( "", dictionary, anchor, 2 ); 
+    extendLeft( "", dictionary, anchor, 3 ); 
    
-    
+    foreach(Move m, int s; moves){
+	  
+	  writefln("%s will score %d points", m, s);
+	   
+	}
 }
 
 
@@ -87,9 +72,19 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 		 
 		 // record a move here
 		 auto leftPos = Position( anchor.x - cast(int)prefix.length, anchor.y);
-		 writefln("found a word at: %s from (%d, %d) to (%d, %d)", 
-			prefix, leftPos.x, leftPos.y, anchor.x, anchor.y);
-	  }else{
+		 //  writefln("found a word at: %s from (%d, %d) to (%d, %d)", 
+		 // 	prefix, leftPos.x, leftPos.y, anchor.x, anchor.y);
+		 
+
+		 // record the move
+		 auto m = Move( leftPos.x, leftPos.y, prefix );
+		 moves[ m ] = evaluateMove( theboard, m );
+
+		 
+
+	  }
+	  
+	  // else{
 		 
 		 for( auto i = 0; i < therack.size; i++ ){
 			
@@ -105,7 +100,7 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 			}
 
 
-		 }
+	  // }
 
 	  }
    }
@@ -123,6 +118,12 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
    }
 
 
+}
+
+
+
+int evaluateMove( Board b, Move m ){
+   return 100;
 }
 
 

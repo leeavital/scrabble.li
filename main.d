@@ -12,17 +12,14 @@ int main(){
    auto dictionary = getEnglishDictionary();
    auto board = new Board();
    auto rack = new Rack();
-   rack.add( 'C' );
-   rack.add( 'A' );
-   rack.add( 'T' );
+   rack.add( 'B' );
+   rack.add( 'R' );
    rack.add( 'S' );
-   rack.add( 'T' );
-   rack.add( 'E' );   
    
     
    board[4, 2] = 'E';    
-   board[5, 3] = 'O';
-   board[6,3] = 'R'; 
+   board[5, 2] = 'E';
+   board[5, 3] = 'R';
    
    writefln("initial board");   
    writeln( board );
