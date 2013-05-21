@@ -334,10 +334,23 @@ unittest{
 
    d1["two"] = 2;
    d2["three"] = 3;
+   d2["four"] = 4;
 
    auto d3 = set_union( d1, d2 );
+   
+   // test small -- big case 
+   assert( d3.length == 3 );
+   assert( d3["four"] == 4 );
+   assert( d3["three"] == 3 );
+   assert( d3["two"] == 2 );
+   
 
-   assert( d3.length == 2 );
+   d3 = set_union( d2, d1 );
+
+   assert( d3.length == 3 );
+   assert( d3["four"] == 4 );
+   assert( d3["three"] == 3 );
+   assert( d3["two"] == 2 );
 
    writefln("finished unittest for set_union");
 
