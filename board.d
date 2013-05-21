@@ -113,6 +113,10 @@ class Board{
 
 
 
+   
+   const int getWordMultiplier( Position p ){
+	  return getWordMultiplier( p.x, p.y );
+   }
 
    const int getWordMultiplier(int x, int y) {
 	  auto mult = multipliers[x][y];
@@ -126,6 +130,11 @@ class Board{
 	  }
    }
 
+   
+
+   const int getLetterMultiplier( Position p ){
+	  return getLetterMultiplier( p.x, p.y );
+   }
 
    const int getLetterMultiplier( int x, int y ){
 	  
