@@ -27,12 +27,15 @@ class Board{
    /**
     * allow a board to be accessed with the index operator
 	*/
-   char opIndex( int i, int j ){
+   const char opIndex( int i, int j ){
 	  return board[i][j];
    }
 
-
-   char opIndex( Position p ){
+   
+   /** 
+    * allow the board to be accessed with a Position
+    */
+   const char opIndex( const Position p ){
 	  return board[ p.x ][ p.y ];
    }
 
