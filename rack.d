@@ -39,7 +39,7 @@ class Rack{
    /**
     * make the Rack index retreivable
 	*/
-   char opIndex(int i){
+   const char opIndex(int i){
 	  return letters[i];
    }
 

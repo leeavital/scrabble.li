@@ -56,9 +56,4 @@ struct Move{
 
    }
    
-
-   
-
-   
-
 }
