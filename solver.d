@@ -15,20 +15,54 @@ import std.format;
 Board theboard;
 TrieNode dictionary;
 Rack therack;
-int[Move] moves;
 
 
 
 
+/**
+ * find the union of two hash sets
+ * 
+ * Ideally, the first parameter is larger but it will work both ways
+ */
+T[V] set_union(T, V)(T[V] a, T[V] b){
+   
+   
+   // if a is smaller than b, add everything in a to b 
+   if( a.length < b.length ){
+	  foreach(V v, T t; a){
+   	     b[v] = t;
+   	  }
+	  return b;
+   }
+   
+
+   // if b is smaller than a, add everything in b to a 
+   else{
+	  
+	  foreach(V v, T t; b){
+   	     a[v] = t;
+   	  }
+
+	  return a;
+   }
+
+}
 
 
-
+/**
+ * solve
+ * @param b  the board to solve
+ * @param d  the first node in a DAWG that holds all valid words
+ * @param r  the rack
+ */
 void solve( Board b, TrieNode d, Rack r){ 
    
    theboard = b;
    dictionary = d;
    therack = r; 
+   int[Move] moves;
    // compute the possible anchor squares
+   
    
     
    for( int x = 0; x < 26; x++ ){
@@ -43,10 +77,15 @@ void solve( Board b, TrieNode d, Rack r){
 			
 			writeln( "nonblank at ", pos );
 				
-
+			   
 			if ( theboard[pos.left] == ' ' && pos.left.x < 26 ){
-			   extendLeft( "", dictionary, pos.left, 1 );
+			   
+			   auto poss = extendLeft( "", dictionary, pos.left, 1 );
+			   moves = set_union( moves, poss );
 			}
+
+			
+
 
 		 }
 
@@ -54,6 +93,8 @@ void solve( Board b, TrieNode d, Rack r){
 	  }
 
    }
+
+
    
    // extendLeft( "", dictionary, anchor, 3 ); 
    
@@ -65,9 +106,12 @@ void solve( Board b, TrieNode d, Rack r){
 }
 
 
-void extendLeft(  string prefix, TrieNode n, Position anchor, int limit ){
+int[Move] extendLeft(  string prefix, TrieNode n, Position anchor, int limit){ 
+   
  
-   extendRight( prefix, n, anchor);
+   int[Move] moves; 
+   
+   moves = set_union( extendRight( prefix, n, anchor, moves), moves );
    
    if( limit > 0 ){
 	  
@@ -78,7 +122,7 @@ void extendLeft(  string prefix, TrieNode n, Position anchor, int limit ){
 		 
 		 if( ! (childNode is null) ){
 			therack.remove( c );
-			extendLeft( prefix ~ c, childNode, anchor, limit - 1 );
+			moves = set_union( extendLeft( prefix ~ c, childNode, anchor, limit - 1 ), moves );
 			therack.add( c );
 		 }
 		 
@@ -86,26 +130,29 @@ void extendLeft(  string prefix, TrieNode n, Position anchor, int limit ){
 
 
    }
+
+   return moves;
    
 
 }
 
 
 
-void extendRight( string prefix, TrieNode n, Position anchor ){
+int[Move] extendRight( string prefix, TrieNode n, Position anchor, int[Move] possibleMoves ){
    
+   int[Move] moves;
+    
    // if the square is vacant 
    if( theboard[anchor.x, anchor.y] == ' '  ){
 	  if( n.isWord ){
 		 
 		 // record a move here
 		 auto leftPos = Position( anchor.x - cast(int)prefix.length, anchor.y);
-		 //  writefln("found a word at: %s from (%d, %d) to (%d, %d)", 
-		 // 	prefix, leftPos.x, leftPos.y, anchor.x, anchor.y);
 		 
 
 		 // record the move
 		 auto m = Move( leftPos.x, leftPos.y, prefix );
+
 		 moves[ m ] = evaluateMove( theboard, m );
 
 		 
@@ -121,7 +168,7 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 	     if( ! ( subNode is null ) && checkCrossSet(c, anchor) ){
 	        	   
 	        therack.remove( c );
-	        extendRight( prefix ~ c, subNode, anchor.right );
+	        moves = set_union( extendRight( prefix ~ c, subNode, anchor.right, possibleMoves), moves );
 	        therack.add( c );
 	     }
 	  
@@ -136,13 +183,14 @@ void extendRight( string prefix, TrieNode n, Position anchor ){
 	  auto subNode = n.search( c ~ "" );
 		 
 	  if( !(subNode is null) ){
-		 extendRight( prefix ~ c, subNode, anchor.right );
+		 moves = set_union( extendRight( prefix ~ c, subNode, anchor.right, possibleMoves ), moves );
 	  }else{
 		 // won't make any words
 	  }
    }
 
-
+   
+   return moves;
 }
 
 
@@ -272,7 +320,26 @@ unittest{
     
    // one cross set on the first character
    assert( evaluateMove(b, m3) == 4 );
-   
        
    writefln("finished unittest for evaluateMove");
+}
+
+
+
+
+unittest{
+
+   int[string] d1;
+   int[string] d2;
+
+   d1["two"] = 2;
+   d2["three"] = 3;
+
+   auto d3 = set_union( d1, d2 );
+
+   assert( d3.length == 2 );
+
+   writefln("finished unittest for set_union");
+
+
 }
