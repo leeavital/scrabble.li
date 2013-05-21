@@ -63,40 +63,24 @@ void solve( Board b, TrieNode d, Rack r){
    int[Move] moves;
    // compute the possible anchor squares
    
-   
-    
+     
    for( int x = 0; x < 26; x++ ){
 	  
 	  for( int y = 0; y < 26; y++ ){
 		 
-		  
 		 auto pos = Position(x, y);
-
 		 
 		 if( theboard[pos.x, pos.y] != ' ' ) {
-			
-			writeln( "nonblank at ", pos );
-				
 			   
 			if ( theboard[pos.left] == ' ' && pos.left.x < 26 ){
 			   
 			   auto poss = extendLeft( "", dictionary, pos.left, 1 );
 			   moves = set_union( moves, poss );
 			}
-
-			
-
-
 		 }
-
-
 	  }
-
    }
 
-
-   
-   // extendLeft( "", dictionary, anchor, 3 ); 
    
    foreach(Move m, int s; moves){
      
@@ -321,7 +305,7 @@ unittest{
    // one cross set on the first character
    assert( evaluateMove(b, m3) == 4 );
        
-   writefln("finished unittest for evaluateMove");
+   writefln("finished unittest 1 for evaluateMove");
 }
 
 
@@ -344,7 +328,8 @@ unittest{
    assert( d3["three"] == 3 );
    assert( d3["two"] == 2 );
    
-
+   
+   // this is the big -- small case
    d3 = set_union( d2, d1 );
 
    assert( d3.length == 3 );
@@ -352,7 +337,7 @@ unittest{
    assert( d3["three"] == 3 );
    assert( d3["two"] == 2 );
 
-   writefln("finished unittest for set_union");
-
-
+   writeln( "finished unittest 1 for set_union" );
 }
+
+
