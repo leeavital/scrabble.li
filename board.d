@@ -64,6 +64,9 @@ class Board{
 	*/
    void opIndexAssign( char c, int i, int j){
 	  //writefln("assigning %d %d as %c", i, j, c );
+
+	  // once we place a piece, it no longer has a multiplier effect
+	  multipliers[i][j] = Multiplier.NO_MULTIPLIER;
 	  board[i][j] = c;
    }
 

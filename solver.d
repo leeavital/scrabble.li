@@ -199,7 +199,8 @@ int evaluateMove( Board b, Move m){
    
    foreach( ulong i; 0 .. m.word.length ){
 	  
-	  total += LETTER_VALUES[ m.word[ i ] ];
+	  total += LETTER_VALUES[ m.word[ i ] ] * b.getLetterMultiplier( currPos );
+	  multiplier *= b.getWordMultiplier( currPos );
 	   
 	  // figure out if we need a cross set
 	  if( b[ currPos.above ] != ' ' || b[ currPos.below ] != ' ' ){
@@ -229,7 +230,7 @@ int evaluateMove( Board b, Move m){
 	  currPos = currPos.right;
 	    	  
    }
-   return total;
+   return total * multiplier;
 }
 
 
