@@ -5,13 +5,27 @@ import std.format;
 import std.array;
 import position;
 
+
+
+// internal representation of multiplier
+enum Multiplier{
+   DOUBLE_WORD,
+   DOUBLE_LETTER,
+   TRIPLE_WORD,
+   TRIPLE_LETTER,
+   NO_MULTIPLIER
+}
+
+
 /**
  * Represents a scrabble board
  */
 class Board{
 
-   char[26][26] board;
-
+   private char[26][26] board;
+   private Multiplier[26][26] multipliers;
+   
+    
    this(){
 
 	  // fill up the board with blank spaces
@@ -20,7 +34,13 @@ class Board{
 			board[i][j] = ' ';
 		 }
 	  }
-   
+
+
+	  // initialize the multipliers
+	  for( int i = 0; i < 26 * 26; i++){
+		 multipliers[ i / 26 ][ i % 26 ] = Multiplier.NO_MULTIPLIER; 
+	  }
+	   
    }
    
 
@@ -89,6 +109,35 @@ class Board{
 
 
 	  return writer.data;
+   }
+
+
+
+
+   const int getWordMultiplier(int x, int y) {
+	  auto mult = multipliers[x][y];
+
+	  if( mult == Multiplier.DOUBLE_WORD ){
+		 return 2;
+	  }else if( mult == Multiplier.TRIPLE_WORD ){
+		 return 3;
+	  }else{
+		 return 1;
+	  }
+   }
+
+
+   const int getLetterMultiplier( int x, int y ){
+	  
+	  auto mult = multipliers[x][y];
+	   
+	  if( mult == Multiplier.DOUBLE_LETTER){
+		 return 2;
+	  }else if( mult == Multiplier.TRIPLE_LETTER ){
+		 return 3;
+	  }else{
+		 return 1;
+	  }
    }
 
 
