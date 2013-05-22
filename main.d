@@ -17,16 +17,17 @@ int main( string[] args ){
 
    // }
 
-
    
 
     
    auto dictionary = getEnglishDictionary();
    auto board = new Board();
    auto rack = new Rack();
+  
+   
    rack.add( 'F' );
-   rack.add( 'N' );
    rack.add( 'L' );
+   rack.add( 'N' );
    
   
  
@@ -52,6 +53,11 @@ int main( string[] args ){
 
 
 
+/**
+ * Read a board from the specified filename
+ * 
+ * @warning doesn't really word
+ */
 Board readBoard( string filename ){
    auto board = new  Board;
    auto f = File( ".board" , "r");

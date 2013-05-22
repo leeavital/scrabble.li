@@ -41,7 +41,6 @@ T[V] set_union(T, V)(T[V] a, T[V] b){
    	  }
 	  return b;
    }
-   
 
    // if b is smaller than a, add everything in b to a 
    else{
@@ -81,7 +80,8 @@ void solve( Board b, TrieNode d, Rack r){
 			   
 			if ( theboard[pos.left] == ' ' && pos.left.x < 26 ){
 			   
-			   auto poss = extendLeft( "", dictionary, pos.left, 1 );
+			   auto poss = extendLeft( "", dictionary, pos.left, 3 );
+
 			   moves = set_union( moves, poss );
 			}
 		 }
@@ -97,25 +97,27 @@ void solve( Board b, TrieNode d, Rack r){
 }
 
 
-int[Move] extendLeft(  string prefix, TrieNode n, Position anchor, int limit){ 
+int[Move] extendLeft( string prefix, TrieNode n, Position anchor, int limit){ 
    
  
    int[Move] moves; 
    
-   moves = set_union( extendRight( prefix, n, anchor, moves), moves );
    
+   // first extend right from the anchor without placing any tiles on the left 
+   moves = set_union( extendRight( prefix, n, anchor), moves );
+  
+   // if we have more room to the left, we can generate a prefix and test with it 
    if( limit > 0 ){
 	  
-	  for( int i = 0; i < therack.size; i++ ){
+	  foreach( char c; therack.characters ){
 		 
-		 auto c = therack[i];
 		 auto childNode = n.search( c ~ "" );
 		 
 		 if( ! (childNode is null) ){
 			therack.remove( c );
 			moves = set_union( extendLeft( prefix ~ c, childNode, anchor, limit - 1 ), moves );
 			therack.add( c );
-		 }
+		 } 
 		 
 	  }
 
@@ -129,7 +131,7 @@ int[Move] extendLeft(  string prefix, TrieNode n, Position anchor, int limit){
 
 
 
-int[Move] extendRight( string prefix, TrieNode n, Position anchor, int[Move] possibleMoves ){
+int[Move] extendRight( string prefix, TrieNode n, Position anchor){
    
    int[Move] moves;
     
@@ -137,6 +139,8 @@ int[Move] extendRight( string prefix, TrieNode n, Position anchor, int[Move] pos
    if( theboard[anchor.x, anchor.y] == ' '  ){
 	  if( n.isWord ){
 		 
+		 writefln("recording %s", prefix );
+		  
 		 // record a move here
 		 auto leftPos = Position( anchor.x - cast(int)prefix.length, anchor.y);
 		 
@@ -144,22 +148,25 @@ int[Move] extendRight( string prefix, TrieNode n, Position anchor, int[Move] pos
 		 // record the move
 		 auto m = Move( leftPos.x, leftPos.y, prefix );
 
+		 
 		 moves[ m ] = evaluateMove( theboard, m );
 
 		 
 
 	  }
 		 
-	  for( auto i = 0; i < therack.size; i++ ){
-	     
-	     auto c = therack[i];
+	  foreach( char c; therack.characters){
+		 
+		  
+		  
 	     auto subNode = n.search( "" ~ c );		
 	     
-	  
+		 writefln("trying to place: %c at %s", c, anchor );
+		 
 	     if( ! ( subNode is null ) && checkCrossSet(c, anchor) ){
 	        	   
 	        therack.remove( c );
-	        moves = set_union( extendRight( prefix ~ c, subNode, anchor.right, possibleMoves), moves );
+	        moves = set_union( extendRight( prefix ~ c, subNode, anchor.right), moves );
 	        therack.add( c );
 	     }
 	  
@@ -169,12 +176,15 @@ int[Move] extendRight( string prefix, TrieNode n, Position anchor, int[Move] pos
    }
 
    else{
+
 	  auto c = theboard[anchor.x, anchor.y];
 	  
+	  writefln("found an adjacent: %c", c );
+
 	  auto subNode = n.search( c ~ "" );
 		 
 	  if( !(subNode is null) ){
-		 moves = set_union( extendRight( prefix ~ c, subNode, anchor.right, possibleMoves ), moves );
+		 moves = set_union( extendRight( prefix ~ c, subNode, anchor.right), moves );
 	  }else{
 		 // won't make any words
 	  }

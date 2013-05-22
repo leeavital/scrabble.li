@@ -19,7 +19,13 @@ class Rack{
    
 
    @property auto size(){ return currentIndex; }
-
+   
+   // deep copy the characters in the array
+   // when doing iterations through the rack use this.
+   @property auto characters(){
+	  // this will force a deep copy 
+	  return letters[0..7];  
+   }
 
    this(){
 	  currentIndex = 0;
@@ -40,13 +46,6 @@ class Rack{
    }
 
    
-   /**
-    * make the Rack index retreivable
-	*/
-   const char opIndex(int i){
-	  return letters[i];
-   }
-
 
 
    public void add(char c){
@@ -73,6 +72,9 @@ class Rack{
 			return;
 		 }
 	  }
+
+
+	  throw new Exception( "could not remove " ~ c ~ " from " ~ this.toString() );
 	   
    }
 
