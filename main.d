@@ -24,16 +24,17 @@ int main( string[] args ){
    auto dictionary = getEnglishDictionary();
    auto board = new Board();
    auto rack = new Rack();
-   rack.add( 'B' );
-   rack.add( 'R' );
-   rack.add( 'S' );
+   rack.add( 'F' );
+   rack.add( 'N' );
+   rack.add( 'L' );
    
-    
-   board[4, 2] = 'E';    
-   board[5, 2] = 'E';
-   board[5, 3] = 'R';
-   board[3, 3] = 'E';
-   board[2, 4] = 'O';
+  
+ 
+   // board[12,14] = 'N'; 
+   board[13,13] = 'A';
+   board[14,13] = 'I';
+   board[15,13] = 'R';
+
    
    
    writefln("initial board");   

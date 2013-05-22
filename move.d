@@ -2,6 +2,7 @@
  * @author Lee Avital
  * 
  * A structure to represent a scrabble move
+ * each move has a position and a word
  */
 
 module move;

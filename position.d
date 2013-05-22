@@ -1,4 +1,12 @@
+/**
+ * @author Lee Avital
+ *
+ * Holds the position struct which provides a semantically
+ * superior way of representing scrabble board coordinates
+ */
+
 module position;
+
 
 
 struct Position{

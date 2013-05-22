@@ -1,3 +1,13 @@
+/**
+ * @author Lee Avital
+ *
+ * Holds a modified trie implementation (what is described as a DAWG)
+ *
+ * Instead of holding an unbounded list of child nodes,
+ * hold an array of 26 child nodes that can represent several substrings
+ * at once
+ */
+
 module trie;
 
 import std.stdio;

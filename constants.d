@@ -1,12 +1,24 @@
+/**
+ * @author Lee Avital
+ *
+ * Holds letter-value combinations used to evaluate words and moves
+ */
+
 module constants;
 
 
 import std.stdio;
 
+/** 
+ * a mapping of chars to their values on the scrabble board
+ *
+ * Uppercase characters only 
+ */
 int[char] LETTER_VALUES;
 
 
-// lolwut
+// initialize the LETTER_VALUES array 
+// this code is called upon module import
 static this(){
 
    LETTER_VALUES['A'] = 1;

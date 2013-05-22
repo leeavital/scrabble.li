@@ -1,5 +1,9 @@
-
-
+/**
+ * @author Lee Avital
+ *
+ * Contains a representation of a scrabble "rack"---
+ * a set of up to seven tiles that the player holds
+ */
 import std.stdio;
 
 

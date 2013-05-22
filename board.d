@@ -1,3 +1,9 @@
+/**
+ * @author Lee Avital
+ *
+ * Holds the board class, which represents a scrabble board
+ */
+
 module Board;
 
 import std.stdio;

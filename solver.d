@@ -1,3 +1,10 @@
+/**
+ * @author Lee Avital
+ *
+ * Holds various functions used for generating
+ * and evaluating scrabble moves
+ */
+
 module solver;
 
 
